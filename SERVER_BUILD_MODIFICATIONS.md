@@ -1,17 +1,19 @@
 # Server Build Modifications for CachyOS Kernel
 
 ## Overview
-This fork adds the ability to build a bare metal server-optimized kernel by excluding desktop/workstation hardware subsystems that are unnecessary for datacenter environments.
+This fork builds a bare metal server-optimized kernel by excluding desktop/workstation hardware subsystems that are unnecessary for datacenter environments.
+
+**NOTE:** Server mode is **ENABLED BY DEFAULT** in this fork. Set `_server_build=no` to build with desktop hardware support.
 
 ## Changes Made
 
 ### 1. New Build Option: `_server_build`
-Added a new configuration variable `_server_build` (default: `no`) that controls server-specific optimizations.
+Added a new configuration variable `_server_build` (default: `yes`) that controls server-specific optimizations.
 
 **Location:** Line 130 in PKGBUILD
 
 ```bash
-: "${_server_build:=no}"
+: "${_server_build:=yes}"
 ```
 
 ### 2. Modified DRM Panic Screen Behavior
@@ -59,19 +61,24 @@ When `_server_build=yes`, the following subsystems are completely disabled:
 ## Usage
 
 ### Basic Server Build
-Set `_server_build=yes` in your build script or environment:
+Server mode is **enabled by default**. Simply build:
 
 ```bash
-export _server_build=yes
 export _cachy_config=no  # Recommended: disable desktop optimizations
+makepkg -s
+```
+
+To build with desktop hardware support, disable server mode:
+
+```bash
+export _server_build=no
 makepkg -s
 ```
 
 ### Recommended Server Configuration
 
 ```bash
-# Core settings
-export _server_build=yes
+# Core settings (_server_build=yes is the default)
 export _cachy_config=no          # Disable desktop scheduler/memory tuning
 
 # Performance settings

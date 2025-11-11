@@ -127,7 +127,7 @@
 # This will disable: DRM/graphics, wireless, bluetooth, sound, and multimedia subsystems
 # WARNING: This will result in a kernel with NO graphics output capability
 # Relies on serial console for remote management (IPMI/SOL)
-: "${_server_build:=no}"
+: "${_server_build:=yes}"
 
 # Enable AUTOFDO_CLANG for the first compilation to create a kernel, which can be used for profiling
 # Workflow:
